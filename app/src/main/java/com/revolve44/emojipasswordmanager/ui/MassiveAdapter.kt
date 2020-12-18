@@ -15,6 +15,7 @@ class MassiveAdapter(private val list: List<PairNameandPassword>,
                      private val listener: GameFragment
 ):
     RecyclerView.Adapter<MassiveAdapter.MassiveViewHolder>(){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MassiveViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.massive_item,
@@ -27,20 +28,20 @@ class MassiveAdapter(private val list: List<PairNameandPassword>,
 
         //holder.imageView.setImageResource(currentItem.imageResource)
         holder.textView1.text = currentItem.nameCompany
-        holder.textView2.text = currentItem.password
+        holder.textView2.text = currentItem.password.toString()
     }
 
     override fun getItemCount()= list.size
 
     inner class MassiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+
+
         View.OnClickListener {
         //val imageView: ImageView = itemView.findViewById(R.id.image_view)
         val textView1: TextView = itemView.findViewById(R.id.text_view_1)
-        val textView2: EmojiTextView = itemView.findViewById(R.id.text_view_2)
+        val textView2: TextView = itemView.findViewById(R.id.text_view_2)
 
-        init {
-            itemView.setOnClickListener(this)
-        }
+
 
         override fun onClick(v: View?) {
             val position = adapterPosition
