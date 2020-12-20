@@ -1,18 +1,21 @@
-package com.revolve44.emojipasswordmanager
+package com.revolve44.emojipasswordmanager.ui.screens
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.revolve44.emojipasswordmanager.MainActivity
+import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.ui.MainViewModel
 import com.revolve44.emojipasswordmanager.ui.MassiveAdapter
-import kotlinx.android.synthetic.main.fragment_game.*
+import kotlinx.android.synthetic.main.fragment_mainscreen.*
 import timber.log.Timber
-import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,10 +24,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [GameFragment.newInstance] factory method to
+ * Use the [MainScreenFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GameFragment : Fragment(R.layout.fragment_game), MassiveAdapter.OnItemClickListener {
+class MainScreenFragment : Fragment(R.layout.fragment_mainscreen), MassiveAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -32,6 +35,7 @@ class GameFragment : Fragment(R.layout.fragment_game), MassiveAdapter.OnItemClic
    // private val exampleList = generateDummyList(500)
    // private var adapter = MassiveAdapter(exampleList, this)
     lateinit var recycler_view : RecyclerView
+
 
     lateinit var viewModel : MainViewModel
 
@@ -43,11 +47,14 @@ class GameFragment : Fragment(R.layout.fragment_game), MassiveAdapter.OnItemClic
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val activity = activity as Context
         viewModel =(activity as MainActivity).viewModel
+
+
 
 
         fab.setOnClickListener {
@@ -65,8 +72,8 @@ class GameFragment : Fragment(R.layout.fragment_game), MassiveAdapter.OnItemClic
                 recycler_view.adapter = adapter
                 recycler_view.layoutManager = LinearLayoutManager(activity)
                 recycler_view.setHasFixedSize(true)
-            }catch (e: Exception){
-                Timber.e("rclvw ERROR log: "+e.message)
+            } catch (e: Exception) {
+                Timber.e("rclvw ERROR log: " + e.message)
             }
 
 
@@ -75,6 +82,8 @@ class GameFragment : Fragment(R.layout.fragment_game), MassiveAdapter.OnItemClic
 
 
     }
+
+
 
     companion object {
         /**
@@ -88,7 +97,7 @@ class GameFragment : Fragment(R.layout.fragment_game), MassiveAdapter.OnItemClic
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            GameFragment().apply {
+            MainScreenFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

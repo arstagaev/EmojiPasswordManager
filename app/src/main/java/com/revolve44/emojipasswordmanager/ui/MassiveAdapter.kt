@@ -3,16 +3,14 @@ package com.revolve44.emojipasswordmanager.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.revolve44.emojipasswordmanager.GameFragment
+import com.revolve44.emojipasswordmanager.ui.screens.MainScreenFragment
 import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
-import com.vanniktech.emoji.EmojiTextView
 
 class MassiveAdapter(private val list: List<PairNameandPassword>,
-                     private val listener: GameFragment
+                     private val listener: MainScreenFragment
 ):
     RecyclerView.Adapter<MassiveAdapter.MassiveViewHolder>(){
 

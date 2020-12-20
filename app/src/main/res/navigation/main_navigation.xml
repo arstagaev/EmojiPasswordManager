@@ -7,16 +7,25 @@
 
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.revolve44.emojipasswordmanager.GameFragment"
+        android:name="com.revolve44.emojipasswordmanager.ui.screens.MainScreenFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" >
+        tools:layout="@layout/fragment_mainscreen" >
         <action
             android:id="@+id/action_gameFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.revolve44.emojipasswordmanager.ResultFragment"
+        android:name="com.revolve44.emojipasswordmanager.ui.screens.ResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_setpassword" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.revolve44.emojipasswordmanager.ui.screens.SettingsFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

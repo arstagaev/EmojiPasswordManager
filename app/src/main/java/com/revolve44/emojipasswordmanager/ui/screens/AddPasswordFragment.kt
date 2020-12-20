@@ -1,14 +1,13 @@
-package com.revolve44.emojipasswordmanager
+package com.revolve44.emojipasswordmanager.ui.screens
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import com.revolve44.emojipasswordmanager.MainActivity
+import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
 import com.revolve44.emojipasswordmanager.ui.MainViewModel
 
@@ -22,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ResultFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ResultFragment : Fragment(R.layout.fragment_result) {
+class ResultFragment : Fragment(R.layout.fragment_setpassword) {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
