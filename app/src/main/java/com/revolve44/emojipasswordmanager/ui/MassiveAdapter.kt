@@ -25,8 +25,10 @@ class MassiveAdapter(private val list: List<PairNameandPassword>,
         val currentItem = list[position]
 
         //holder.imageView.setImageResource(currentItem.imageResource)
-        holder.textView1.text = currentItem.nameCompany
-        holder.textView2.text = currentItem.password.toString()
+        holder.nameOfService.text = currentItem.nameCompany
+        holder.passwordBody.text = currentItem.password.toString()
+        holder.passwordBody.isSelected = true
+        //holder.textView2.marqueeRepeatLimit
     }
 
     override fun getItemCount()= list.size
@@ -36,8 +38,8 @@ class MassiveAdapter(private val list: List<PairNameandPassword>,
 
         View.OnClickListener {
         //val imageView: ImageView = itemView.findViewById(R.id.image_view)
-        val textView1: TextView = itemView.findViewById(R.id.text_view_1)
-        val textView2: TextView = itemView.findViewById(R.id.text_view_2)
+        val nameOfService: TextView = itemView.findViewById(R.id.text_view_1)
+        val passwordBody: TextView = itemView.findViewById(R.id.text_view_2)
 
 
 

@@ -3,25 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/gameFragment">
+    app:startDestination="@id/MainScreenFragment">
 
     <fragment
-        android:id="@+id/gameFragment"
+        android:id="@+id/MainScreenFragment"
         android:name="com.revolve44.emojipasswordmanager.ui.screens.MainScreenFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_mainscreen" >
         <action
             android:id="@+id/action_gameFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/setPasswordFragment" />
         <action
             android:id="@+id/action_gameFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/resultFragment"
+        android:id="@+id/setPasswordFragment"
         android:name="com.revolve44.emojipasswordmanager.ui.screens.ResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_setpassword" />
+        tools:layout="@layout/fragment_setpassword" >
+        <action
+            android:id="@+id/action_setPasswordFragment_to_MainScreenFragment"
+            app:destination="@id/MainScreenFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"

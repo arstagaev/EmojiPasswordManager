@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.navigation.fragment.NavHostFragment
 import com.revolve44.emojipasswordmanager.MainActivity
 import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
@@ -53,6 +54,9 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
             val pairNameandPassword : PairNameandPassword = PairNameandPassword("VK","qwerty")
             viewModel.newPassword.value =  pairNameandPassword
             viewModel.addPassword("${inputServiceName.text}", "${inputPassword.text}")
+
+            //go to another fragment
+            NavHostFragment.findNavController(this).navigate(R.id.action_setPasswordFragment_to_MainScreenFragment)
         }
 
 
