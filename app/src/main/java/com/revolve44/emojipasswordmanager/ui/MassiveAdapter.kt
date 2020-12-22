@@ -26,6 +26,7 @@ class MassiveAdapter(private val list: List<PairNameandPassword>,
 
         //holder.imageView.setImageResource(currentItem.imageResource)
         holder.nameOfService.text = currentItem.nameCompany
+        //holder.nameOfService.rotation = 180F
         holder.passwordBody.text = currentItem.password.toString()
         holder.passwordBody.isSelected = true
         //holder.textView2.marqueeRepeatLimit
