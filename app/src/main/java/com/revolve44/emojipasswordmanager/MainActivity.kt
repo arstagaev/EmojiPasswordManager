@@ -109,13 +109,13 @@ class MainActivity : AppCompatActivity() {
 //                Log.d("sss",""+menux.itemId)
 
             when(menux.itemId){
-                R.id.menu_settings -> navController.navigate(R.id.action_gameFragment_to_settingsFragment)
+                //R.id.menu_settings -> navController.navigate(R.id.action_gameFragment_to_settingsFragment)
                 R.id.menu_about -> showMenu()
-                R.id.change_color -> {
-                    mainScreenfragment.changeBackgroundColor()
-                   // changeColor(mainScreenLayout,PreferenceMaestro.pickedColorofMainScreen, listOfColor(howmanyclickedChangeColorinMenu),1500)
-//                    howmanyclickedChangeColorinMenu++
-                }
+//                R.id.change_color -> {
+//                    mainScreenfragment.changeBackgroundColor()
+//                   // changeColor(mainScreenLayout,PreferenceMaestro.pickedColorofMainScreen, listOfColor(howmanyclickedChangeColorinMenu),1500)
+////                    howmanyclickedChangeColorinMenu++
+//                }
             }
             return@setOnMenuItemClickListener true
         }
