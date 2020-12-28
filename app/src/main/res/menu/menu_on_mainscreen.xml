@@ -10,10 +10,10 @@
         android:id="@+id/menu_about"
         android:title="About"
         app:showAsAction="never" />
-<!--    <item-->
-<!--        android:id="@+id/change_color"-->
-<!--        android:title="Change background color"-->
-<!--        app:showAsAction="never" />-->
+    <item
+        android:id="@+id/change_color"
+        android:title="Discord Channel"
+        app:showAsAction="never" />
 <!--    <item-->
 <!--        android:id="@+id/item3"-->
 <!--        android:title="Item 3"-->

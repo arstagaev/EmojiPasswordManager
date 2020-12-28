@@ -3,7 +3,11 @@ package com.revolve44.emojipasswordmanager
 
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var popup : PopupMenu
 
     lateinit var toolbar: Toolbar
-    lateinit var toolbar_menu: Button
+    lateinit var toolbar_menu: ImageView
     lateinit var navController: NavController
     lateinit var actionbarTitle: TextView
     val mainScreenfragment : MainScreenFragment = MainScreenFragment()
@@ -111,18 +115,39 @@ class MainActivity : AppCompatActivity() {
 
             when(menux.itemId){
                 //R.id.menu_settings -> navController.navigate(R.id.action_gameFragment_to_settingsFragment)
-                R.id.menu_about -> showMenu()
-//                R.id.change_color -> {
-//                    mainScreenfragment.changeBackgroundColor()
-//                   // changeColor(mainScreenLayout,PreferenceMaestro.pickedColorofMainScreen, listOfColor(howmanyclickedChangeColorinMenu),1500)
-////                    howmanyclickedChangeColorinMenu++
-//                }
+                R.id.menu_about -> showDialog()
+                R.id.change_color -> {
+                    goToUrl("https://discord.gg/gSDaQ4xN")
+                    // changeColor(mainScreenLayout,PreferenceMaestro.pickedColorofMainScreen, listOfColor(howmanyclickedChangeColorinMenu),1500)
+//                    howmanyclickedChangeColorinMenu++
+                }
             }
             return@setOnMenuItemClickListener true
         }
     }
 
-    private fun showPopupDialog() {
+    private fun showDialog(){
+        val alertDialog: AlertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setTitle("Emoji Password Manager \n(v. 0.1)")
+        alertDialog.setMessage("This method of storing passwords is itself a high degree of encryption." +
+                " Only you know what these or those symbols mean, only you understand what such a sequence of emoji means."+
+                "\n          " +
+        "\n future features: \n" +
+                "- password to emoji converter, its will be fun!(Coming Soon!) \uD83D\uDE02 \n" +
+                "- personal account for synchronizing passwords on various devices (IF WE GET 1000 users)\uD83D\uDDA5️ \n" +
+                "- iOS version (IF WE GET 3000 users)\uD83D\uDE09 \n"+
+                "- desktop version (IF WE GET 5000 users) \uD83D\uDE0D")
+        alertDialog.setButton(
+            AlertDialog.BUTTON_NEUTRAL, "our Discord Channel",
+            DialogInterface.OnClickListener { dialog, which -> goToUrl("https://discord.gg/gSDaQ4xN") })
+//        alertDialog.setButton(
+//            AlertDialog.BUTTON_POSITIVE, "Don't show again",
+//            DialogInterface.OnClickListener { dialog, which ->
+//                editor.putBoolean("showagain", false)
+//                editor.apply()
+//                dialog.dismiss()https://discord.gg/gSDaQ4xN
+//            })
+        alertDialog.show()
 
     }
 
@@ -130,6 +155,12 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_on_mainscreen, menu);
         return true;
 
+    }
+
+    private fun goToUrl(url: String) {
+        val uriUrl: Uri = Uri.parse(url)
+        val launchBrowser = Intent(Intent.ACTION_VIEW, uriUrl)
+        startActivity(launchBrowser)
     }
 }
 

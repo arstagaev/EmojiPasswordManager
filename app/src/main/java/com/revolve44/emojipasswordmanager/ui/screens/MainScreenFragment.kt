@@ -1,20 +1,14 @@
 package com.revolve44.emojipasswordmanager.ui.screens
 
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.TextView
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -23,13 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.revolve44.emojipasswordmanager.MainActivity
 import com.revolve44.emojipasswordmanager.R
-import com.revolve44.emojipasswordmanager.storage.PreferenceMaestro
 import com.revolve44.emojipasswordmanager.ui.MainViewModel
 import com.revolve44.emojipasswordmanager.ui.MassiveAdapter
 //import com.revolve44.emojipasswordmanager.ui.changeColor
-import com.revolve44.emojipasswordmanager.utils.listOfColor
 import kotlinx.android.synthetic.main.fragment_mainscreen.*
 import timber.log.Timber
+import java.util.*
+import kotlin.concurrent.schedule
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,38 +45,39 @@ class MainScreenFragment : Fragment(R.layout.fragment_mainscreen), MassiveAdapte
     lateinit var adapter : MassiveAdapter
     lateinit var fab: FloatingActionButton
     var howmanyclickedChangeColorinMenu = 0
+    lateinit var topMainScreenLayout: RelativeLayout
+    lateinit var poolEmpty: TextView
+
+    //private val timer = Timer("schedule2")
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainScreenLayout = view.findViewById(R.id.xxx)
+        mainScreenLayout = view.findViewById(R.id.top_main_screen_layout)
         fab = view.findViewById(R.id.fab)
+        topMainScreenLayout = view.findViewById(R.id.top_main_screen_layout)
+        poolEmpty = view.findViewById(R.id.pool_empty)
+        recycler_view = view.findViewById(R.id.recycler_view)
 
         val activity = activity as Context
         viewModel =(activity as MainActivity).viewModel
 
-        val skyAnim2: ValueAnimator = ObjectAnimator.ofInt(mainScreenLayout, "backgroundColor", PreferenceMaestro.pickedColorofMainScreen,
-                listOfColor(howmanyclickedChangeColorinMenu))
 
-        skyAnim2.duration = 4000L
-        skyAnim2.setEvaluator(ArgbEvaluator())
-        skyAnim2.start()
+//        val skyAnim2: ValueAnimator = ObjectAnimator.ofInt(mainScreenLayout, "backgroundColor", PreferenceMaestro.pickedColorofMainScreen,
+//                listOfColor(howmanyclickedChangeColorinMenu))
+//
+//        skyAnim2.duration = 4000L
+//        skyAnim2.setEvaluator(ArgbEvaluator())
+//        skyAnim2.start()
+        showRecyclerView()
+        showFabActionButton()
 
 
+    }
 
-
-
-        fab.setOnClickListener {
-            //go to another fragment
-            NavHostFragment.findNavController(this).navigate(R.id.action_gameFragment_to_resultFragment)
-        }
-        //fab.backgroundTintList = Color.BLACK
-        fab.rippleColor = Color.BLACK
-
-        recycler_view = view.findViewById(R.id.recycler_view)
-
+    private fun showRecyclerView() {
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if(dy > 0){
@@ -98,16 +93,51 @@ class MainScreenFragment : Fragment(R.layout.fragment_mainscreen), MassiveAdapte
 
 
         viewModel.getAllPasswords().observe(viewLifecycleOwner, Observer { updates ->
-            try {
-                adapter = MassiveAdapter(updates, this, viewModel)
+            Timber.i("${updates.toString()} and size is ${updates.size}")
+            if (updates.isNotEmpty()){
+                //poolEmpty.isInvisible
+                poolEmpty.text = ""
+                try {
 
-                recycler_view.adapter = adapter
-                recycler_view.layoutManager = LinearLayoutManager(activity)
-                recycler_view.setHasFixedSize(true)
-            } catch (e: Exception) {
-                Timber.e("rclvw ERROR log: " + e.message)
+                    adapter = MassiveAdapter(updates, this, viewModel)
+
+                    recycler_view.adapter = adapter
+                    recycler_view.layoutManager = LinearLayoutManager(activity)
+                    recycler_view.setHasFixedSize(false)
+                } catch (e: Exception) {
+                    Timber.e("rclvw ERROR log: " + e.message)
+                }
+            }else{
+
+                adapter.notifyDataSetChanged()
+                poolEmpty.setText("パスワードはまだ保存されていません... \n" +
+                        " \uD83E\uDD7A \n" +
+                        " \uD83D\uDC49\uD83D\uDC48")
+                val timer = object: CountDownTimer(6000, 6000) {
+                    override fun onTick(millisUntilFinished: Long) {
+
+                    }
+
+                    override fun onFinish() {
+                        poolEmpty.setText("You have no saved passwords, yet... \n \uD83E\uDD7A \n \uD83D\uDC49\uD83D\uDC48")
+
+                    }
+                }
+                timer.start()
+
             }
+
+
         })
+    }
+
+    private fun showFabActionButton() {
+        fab.setOnClickListener {
+            //go to another fragment
+            NavHostFragment.findNavController(this).navigate(R.id.action_gameFragment_to_resultFragment)
+        }
+        //fab.backgroundTintList = Color.BLACK
+        fab.rippleColor = Color.BLACK
     }
 
 

@@ -42,19 +42,21 @@
 
             </TextView>
 
-            <Button
+            <ImageView
                 android:id="@+id/toolbar_menu"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:textColorHint="@color/white"
-                android:background="@drawable/ic_baseline_more_vert_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:backgroundTint="@color/white"
 
-            </Button>
+                android:src="@drawable/ic_baseline_more_vert_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="lollipop">
+
+            </ImageView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

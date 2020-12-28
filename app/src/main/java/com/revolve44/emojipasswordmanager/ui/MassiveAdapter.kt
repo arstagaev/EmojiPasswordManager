@@ -40,7 +40,7 @@ class MassiveAdapter(private val list: List<PairNameandPassword>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MassiveViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
-                R.layout.massive_item,
+                R.layout.pair_name_and_password_item,
                 parent, false)
         return MassiveViewHolder(itemView)
     }

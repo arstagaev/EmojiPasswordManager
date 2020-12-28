@@ -6,11 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RelativeLayout
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.RecyclerView
 import com.revolve44.emojipasswordmanager.MainActivity
 import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
 import com.revolve44.emojipasswordmanager.ui.MainViewModel
+import com.revolve44.emojipasswordmanager.ui.MassiveAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +35,11 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
     lateinit var inputServiceName : EditText
     lateinit var inputPassword : EditText
 
+    lateinit var recyclerviewSuggestions : RecyclerView
+    lateinit var adapterSuggestions : MassiveAdapter
+
+    lateinit var oldPairNameAndPassword : PairNameandPassword
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -48,22 +56,31 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
 
         inputServiceName = view.findViewById(R.id.input_name_of_service)
         inputPassword = view.findViewById(R.id.input_password)
+
         if (viewModel.pairPasswordAndName.value!=null){
             inputServiceName.setText(viewModel.pairPasswordAndName.value!!.nameCompany+"")
             inputPassword.setText(viewModel.pairPasswordAndName.value!!.password+"")
             confirmButton.text = "confirm changes"
+
+            oldPairNameAndPassword =
+                PairNameandPassword(
+                    inputServiceName.text.toString(),
+                    inputPassword.text.toString())
         }
 
         confirmButton.setOnClickListener {
 
 
+
 //            val pairNameandPassword : PairNameandPassword = PairNameandPassword("VK","qwerty")
 //            viewModel.newPassword.value =  pairNameandPassword
+            viewModel.deletePassword(oldPairNameAndPassword)
             viewModel.addPassword("${inputServiceName.text}", "${inputPassword.text}")
 
             //go to another fragment
             NavHostFragment.findNavController(this).navigate(R.id.action_setPasswordFragment_to_MainScreenFragment)
         }
+
 
 
     }

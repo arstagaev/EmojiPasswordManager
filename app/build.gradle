@@ -86,5 +86,6 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.1.0"  // may delete its not used
 
     //implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-    implementation 'com.vanniktech:emoji-ios:0.7.0'
+    //delete here, but i will remove in some future
+    //implementation 'com.vanniktech:emoji-ios:0.7.0'
 }
