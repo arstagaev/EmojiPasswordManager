@@ -14,7 +14,7 @@ class MainViewModel(app: Application, private val repository: PassRepository) : 
 
     //val repository : PassRepository = PassRepository(app)
 
-    var newPassword = MutableLiveData<PairNameandPassword>()
+    var pairPasswordAndName = MutableLiveData<PairNameandPassword>()
 
     private var allForecastforChart : LiveData<List<PairNameandPassword>> = repository.getAllForecastCells()
 
@@ -28,6 +28,9 @@ class MainViewModel(app: Application, private val repository: PassRepository) : 
 //    fun addPassword(pairNameandPassword: PairNameandPassword) = viewModelScope.launch {
 //
 //    }
+    fun deletePasswordManual(){
+
+    }
 
     fun addPassword(nameOfService: String, password: String) = viewModelScope.launch{
         val pairNameandPassword = PairNameandPassword(nameOfService,password)
@@ -35,13 +38,17 @@ class MainViewModel(app: Application, private val repository: PassRepository) : 
         repository.addPassword(pairNameandPassword)
     }
 
+    fun deletePassword(pairNameandPassword: PairNameandPassword) = viewModelScope.launch{
+        repository.deletePassword(pairNameandPassword)
+    }
+
     fun getAllPasswords() : LiveData<List<PairNameandPassword>> {
 
         return allForecastforChart
     }
 
-    suspend fun deletePassword(pairNameandPassword: PairNameandPassword) {
-        repository.deletePassword(pairNameandPassword)
-    }
+//    suspend fun deletePassword(pairNameandPassword: PairNameandPassword) {
+//
+//    }
 
 }

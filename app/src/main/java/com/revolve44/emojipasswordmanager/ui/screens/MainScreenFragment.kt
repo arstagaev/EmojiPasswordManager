@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.revolve44.emojipasswordmanager.MainActivity
 import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.storage.PreferenceMaestro
@@ -41,33 +42,23 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MainScreenFragment : Fragment(R.layout.fragment_mainscreen), MassiveAdapter.OnItemClickListener {
-    // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
 
-   // private val exampleList = generateDummyList(500)
-   // private var adapter = MassiveAdapter(exampleList, this)
     lateinit var recycler_view : RecyclerView
     private lateinit var mainScreenLayout: RelativeLayout
 
 
     lateinit var viewModel : MainViewModel
-    //lateinit var mainScreenLayout : ConstraintLayout
+    lateinit var adapter : MassiveAdapter
+    lateinit var fab: FloatingActionButton
     var howmanyclickedChangeColorinMenu = 0
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-////        arguments?.let {
-////            param1 = it.getString(ARG_PARAM1)
-////            param2 = it.getString(ARG_PARAM2)
-////        }
-//    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         mainScreenLayout = view.findViewById(R.id.xxx)
+        fab = view.findViewById(R.id.fab)
 
         val activity = activity as Context
         viewModel =(activity as MainActivity).viewModel
@@ -92,11 +83,24 @@ class MainScreenFragment : Fragment(R.layout.fragment_mainscreen), MassiveAdapte
 
         recycler_view = view.findViewById(R.id.recycler_view)
 
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if(dy > 0){
+                    fab.hide();
+                } else{
+                    fab.show();
+                }
+                super.onScrolled(recyclerView, dx, dy)
+
+            }
+        })
+
 
 
         viewModel.getAllPasswords().observe(viewLifecycleOwner, Observer { updates ->
             try {
-                val adapter = MassiveAdapter(updates, this)
+                adapter = MassiveAdapter(updates, this, viewModel)
+
                 recycler_view.adapter = adapter
                 recycler_view.layoutManager = LinearLayoutManager(activity)
                 recycler_view.setHasFixedSize(true)

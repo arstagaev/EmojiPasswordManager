@@ -1,9 +1,9 @@
 package com.revolve44.emojipasswordmanager.utils
 
 import android.graphics.Color
-
+//絵文字パスワードキーパー -> emoji password keeper
 fun randomName() = listOf(
-        "not tired?:)", "are you kidding?", "OK, I get it.", "all will be alright", "now i am tired"
+        "not tired?:)", "are you kidding?", "OK, I get it.", "絵文字パスワードキーパー", "now i am tired"
 ).random()
 
 fun listOfColor(num: Int) = listOf(

@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel : MainViewModel
     // create a daemon thread (i mean no ui thread if false)
-    private val timer = Timer("schedule",false);
+    private val timer = Timer("schedule",false)
     private lateinit var popup : PopupMenu
 
     lateinit var toolbar: Toolbar
@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment) //Initialising navController
         var a = 0
         actionbarTitle.setOnClickListener {
+            a++
 
             if (a>6){
                 actionbarTitle.text = randomName()
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             if (a<7){
                 blinkATextView(actionbarTitle, PreferenceMaestro.pickedColorofToolbarTitle,Color.BLACK, listOfColor(a),1000)
                 PreferenceMaestro.pickedColorofToolbarTitle = a
-                a++
+
             }
 
         }
@@ -132,10 +133,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-//private fun Timer.schedule(showPopupDialog: Unit, l: Long) {
-//
-//
-//}
+
 
 
 

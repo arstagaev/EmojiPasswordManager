@@ -45,14 +45,20 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
         val activity = activity as Context
         viewModel =(activity as MainActivity).viewModel
         confirmButton = view.findViewById(R.id.confirm)
+
         inputServiceName = view.findViewById(R.id.input_name_of_service)
         inputPassword = view.findViewById(R.id.input_password)
-
+        if (viewModel.pairPasswordAndName.value!=null){
+            inputServiceName.setText(viewModel.pairPasswordAndName.value!!.nameCompany+"")
+            inputPassword.setText(viewModel.pairPasswordAndName.value!!.password+"")
+            confirmButton.text = "confirm changes"
+        }
 
         confirmButton.setOnClickListener {
 
-            val pairNameandPassword : PairNameandPassword = PairNameandPassword("VK","qwerty")
-            viewModel.newPassword.value =  pairNameandPassword
+
+//            val pairNameandPassword : PairNameandPassword = PairNameandPassword("VK","qwerty")
+//            viewModel.newPassword.value =  pairNameandPassword
             viewModel.addPassword("${inputServiceName.text}", "${inputPassword.text}")
 
             //go to another fragment
@@ -60,6 +66,13 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
         }
 
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.pairPasswordAndName.value=null
+        inputServiceName.setText("")
+        inputPassword.setText("")
     }
 
 

@@ -18,7 +18,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/image_view"
+                android:id="@+id/options_in_row"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
@@ -41,8 +41,8 @@
                 android:layout_marginLeft="16dp"
 
 
-                android:layout_toEndOf="@id/image_view"
-                android:layout_toRightOf="@id/image_view"
+                android:layout_toEndOf="@id/options_in_row"
+                android:layout_toRightOf="@id/options_in_row"
 
                 android:text="Vkontakte"
                 android:textColor="@android:color/black"
