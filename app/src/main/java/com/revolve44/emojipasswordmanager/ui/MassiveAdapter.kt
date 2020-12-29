@@ -70,7 +70,8 @@ class MassiveAdapter(private val list: List<PairNameandPassword>,
                             Timber.i("ccc delete!!")
                             Timber.i("ccc ${getItemId(position)}")
                             viewModel.deletePassword(list.get(position))
-                            notifyDataSetChanged()
+                            notifyItemRemoved(position)
+                            notifyItemRangeChanged(0,position)
                             true
                         }
                         else -> false

@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val repository = PassRepository(application) // really? wtf
+        val repository = PassRepository(application)
 
         blinkATextView(actionbarTitle,Color.WHITE,Color.BLACK, listOfColor(PreferenceMaestro.pickedColorofToolbarTitle),1000)
 

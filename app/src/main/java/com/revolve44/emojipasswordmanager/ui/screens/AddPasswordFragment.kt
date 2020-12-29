@@ -14,6 +14,7 @@ import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
 import com.revolve44.emojipasswordmanager.ui.MainViewModel
 import com.revolve44.emojipasswordmanager.ui.MassiveAdapter
+import timber.log.Timber
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +57,7 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
 
         inputServiceName = view.findViewById(R.id.input_name_of_service)
         inputPassword = view.findViewById(R.id.input_password)
+        Timber.i("well "+viewModel.pairPasswordAndName.value.toString())
 
         if (viewModel.pairPasswordAndName.value!=null){
             inputServiceName.setText(viewModel.pairPasswordAndName.value!!.nameCompany+"")
@@ -67,6 +69,9 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
                     inputServiceName.text.toString(),
                     inputPassword.text.toString())
         }
+        if (inputServiceName.text.toString() == ""){
+
+        }
 
         confirmButton.setOnClickListener {
 
@@ -74,6 +79,7 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
 
 //            val pairNameandPassword : PairNameandPassword = PairNameandPassword("VK","qwerty")
 //            viewModel.newPassword.value =  pairNameandPassword
+
             viewModel.deletePassword(oldPairNameAndPassword)
             viewModel.addPassword("${inputServiceName.text}", "${inputPassword.text}")
 

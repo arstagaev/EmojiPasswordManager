@@ -109,7 +109,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_mainscreen), MassiveAdapte
                 }
             }else{
 
-                adapter.notifyDataSetChanged()
+
                 poolEmpty.setText("パスワードはまだ保存されていません... \n" +
                         " \uD83E\uDD7A \n" +
                         " \uD83D\uDC49\uD83D\uDC48")
