@@ -1,21 +1,16 @@
-package com.revolve44.emojipasswordmanager.ui
+package com.revolve44.emojipasswordmanager.adapters
 
-import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
-import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.revolve44.emojipasswordmanager.MainActivity
 import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
+import com.revolve44.emojipasswordmanager.ui.MainViewModel
 import com.revolve44.emojipasswordmanager.ui.screens.MainScreenFragment
 import timber.log.Timber
 

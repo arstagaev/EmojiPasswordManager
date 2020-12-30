@@ -7,8 +7,6 @@ import android.os.CountDownTimer
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.core.view.isGone
-import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -18,12 +16,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.revolve44.emojipasswordmanager.MainActivity
 import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.ui.MainViewModel
-import com.revolve44.emojipasswordmanager.ui.MassiveAdapter
+import com.revolve44.emojipasswordmanager.adapters.MassiveAdapter
 //import com.revolve44.emojipasswordmanager.ui.changeColor
 import kotlinx.android.synthetic.main.fragment_mainscreen.*
 import timber.log.Timber
 import java.util.*
-import kotlin.concurrent.schedule
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

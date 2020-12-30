@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
 import com.revolve44.emojipasswordmanager.repository.PassRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
