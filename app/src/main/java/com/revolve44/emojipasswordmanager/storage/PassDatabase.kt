@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.revolve44.emojipasswordmanager.models.DeletedPairsOfNameAndPassword
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
 
 
 @Database(
-    entities = [PairNameandPassword::class],
+    entities = [PairNameandPassword::class,
+               DeletedPairsOfNameAndPassword::class],
     version = 1
 )
 abstract class PassDatabase : RoomDatabase(){

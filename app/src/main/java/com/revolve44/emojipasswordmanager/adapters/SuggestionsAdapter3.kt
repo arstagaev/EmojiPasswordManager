@@ -1,8 +1,6 @@
 package com.revolve44.emojipasswordmanager.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.revolve44.emojipasswordmanager.R
 import com.revolve44.emojipasswordmanager.models.SuggestPair
 import com.revolve44.emojipasswordmanager.ui.MainViewModel
-import timber.log.Timber
 
-class SuggestionsAdapter(
+class SuggestionsAdapter3(
     private val list: List<SuggestPair>,
     context: Context,
     private val viewModel: MainViewModel
-) : RecyclerView.Adapter<SuggestionsAdapter.SuggestViewHolder>() {
+) : RecyclerView.Adapter<SuggestionsAdapter3.SuggestViewHolder>() {
 
     // Define listener member variable
     private var listener: OnItemClickListener? = null
@@ -36,7 +33,7 @@ class SuggestionsAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SuggestionsAdapter.SuggestViewHolder {
+    ): SuggestionsAdapter3.SuggestViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.suggestion_item,
             parent, false
@@ -44,7 +41,7 @@ class SuggestionsAdapter(
         return SuggestViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: SuggestionsAdapter.SuggestViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SuggestionsAdapter3.SuggestViewHolder, position: Int) {
         val item = list.get(position)
         holder.suggestPassword.text = item.emojiPasswordSuggest.toString()
         holder.textMeaning.text = item.whatIsMean.toString()

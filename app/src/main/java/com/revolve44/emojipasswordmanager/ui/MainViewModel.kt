@@ -5,24 +5,23 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.revolve44.emojipasswordmanager.base.BaseViewModel
+import com.revolve44.emojipasswordmanager.models.DeletedPairsOfNameAndPassword
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
 import com.revolve44.emojipasswordmanager.repository.PassRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class MainViewModel(app: Application, private val repository: PassRepository) : AndroidViewModel(app) {
+class MainViewModel(val application: Application) : BaseViewModel() {
 
-    //val repository : PassRepository = PassRepository(app)
+    val repository : PassRepository = PassRepository(application)
 
     var pairPasswordAndName = MutableLiveData<PairNameandPassword>()
 
-    private var allForecastforChart : LiveData<List<PairNameandPassword>> = repository.getAllForecastCells()
+    var allPairOfPasswordsAndNames : LiveData<List<PairNameandPassword>> = repository.getAllForecastCells()
 
     init {
         //startAlphaRequest()
-
-
         Timber.i("init viewModel")
     }
 
@@ -40,16 +39,37 @@ class MainViewModel(app: Application, private val repository: PassRepository) : 
     }
 
     fun deletePassword(pairNameandPassword: PairNameandPassword) = viewModelScope.launch{
+        repository.addDeletedPasswordtoTrashbox(
+                DeletedPairsOfNameAndPassword(pairNameandPassword.nameCompany,pairNameandPassword.password))
+
         repository.deletePassword(pairNameandPassword)
     }
 
     fun getAllPasswords() : LiveData<List<PairNameandPassword>> {
-
-        return allForecastforChart
+        return allPairOfPasswordsAndNames
     }
 
 //    suspend fun deletePassword(pairNameandPassword: PairNameandPassword) {
 //
 //    }
 
+    var allPairOfPasswordsAndNamesFromTrashbox : LiveData<List<DeletedPairsOfNameAndPassword>> = repository.getAllPasswordsFromTrashbox()
+
+
+
+    fun restorePassword(deletedPairsOfNameAndPassword: DeletedPairsOfNameAndPassword) = viewModelScope.launch{
+        val pairNameandPassword = PairNameandPassword(deletedPairsOfNameAndPassword.deletedNameCompany,deletedPairsOfNameAndPassword.deletedPassword)
+        // restore password , add to mainlist
+        repository.addPassword(pairNameandPassword)
+        // delete password from trashbox
+        repository.restorePassword(deletedPairsOfNameAndPassword)
+    }
+
+    fun getAllPasswordsFromTrashbox() : LiveData<List<DeletedPairsOfNameAndPassword>> {
+        return allPairOfPasswordsAndNamesFromTrashbox
+    }
+
+    fun clearTrashbox() = viewModelScope.launch{
+        repository.clearTrashbox()
+    }
 }

@@ -7,18 +7,21 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.revolve44.emojipasswordmanager.MainActivity
 import com.revolve44.emojipasswordmanager.R
-import com.revolve44.emojipasswordmanager.adapters.MassiveAdapter
-import com.revolve44.emojipasswordmanager.adapters.SuggestionsAdapter
+import com.revolve44.emojipasswordmanager.adapters.SuggestionsAdapter1
+import com.revolve44.emojipasswordmanager.adapters.SuggestionsAdapter2
+import com.revolve44.emojipasswordmanager.adapters.SuggestionsAdapter3
+import com.revolve44.emojipasswordmanager.adapters.SuggestionsAdapter4
 import com.revolve44.emojipasswordmanager.models.PairNameandPassword
 import com.revolve44.emojipasswordmanager.models.SuggestPair
 import com.revolve44.emojipasswordmanager.ui.MainViewModel
+import com.revolve44.emojipasswordmanager.utils.randomPasswordFirstPart
+import com.revolve44.emojipasswordmanager.utils.randomPasswordSecondPart
 import timber.log.Timber
 
 
@@ -39,15 +42,26 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
 
     lateinit var viewModel : MainViewModel
     lateinit var confirmButton : Button
+    lateinit var randomButton: Button
+
     lateinit var inputServiceName : EditText
     lateinit var inputPassword : EditText
 
     lateinit var recyclerviewSuggestions : RecyclerView
-    lateinit var adapterSuggestions : SuggestionsAdapter
+    lateinit var adapterSuggestions : SuggestionsAdapter1
 
-    lateinit var oldPairNameAndPassword : PairNameandPassword
+    lateinit var recyclerviewSuggestions2 : RecyclerView
+    lateinit var adapterSuggestions2 : SuggestionsAdapter2
 
-    var arrayList : ArrayList<SuggestPair> = ArrayList()
+    lateinit var recyclerviewSuggestions3 : RecyclerView
+    lateinit var adapterSuggestions3 : SuggestionsAdapter3
+
+    lateinit var recyclerviewSuggestions4 : RecyclerView
+    lateinit var adapterSuggestions4 : SuggestionsAdapter4
+
+    //var oldPairNameAndPassword : PairNameandPassword = PairNameandPassword()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +77,9 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
         val activity = activity as Context
         viewModel =(activity as MainActivity).viewModel
         confirmButton = view.findViewById(R.id.confirm)
+        randomButton = view.findViewById(R.id.generate_random)
 
-        recyclerviewSuggestions = view.findViewById(R.id.passwordSuggestingList)
+
 
         inputServiceName = view.findViewById(R.id.input_name_of_service)
         inputPassword = view.findViewById(R.id.input_password)
@@ -75,54 +90,167 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
             inputPassword.setText(viewModel.pairPasswordAndName.value!!.password + "")
             confirmButton.text = "confirm changes"
 
-            oldPairNameAndPassword =
-                PairNameandPassword(
-                    inputServiceName.text.toString(),
-                    inputPassword.text.toString()
-                )
+
         }
         if (inputServiceName.text.toString() == ""){
 
         }
 
-        confirmButton.setOnClickListener {
 
+        initFirstRecyclerView(view)
+        initSecondRecyclerView(view)
+        initThirdRecyclerView(view)
+        initFourthRecyclerView(view)
+
+        initButtons()
+
+    }
+
+    private fun initButtons() {
+        confirmButton.setOnClickListener {
+            var oldPairNameAndPassword : PairNameandPassword =
+                    PairNameandPassword(
+                            inputServiceName.text.toString(),
+                            inputPassword.text.toString()
+                    )
 
 
 //            val pairNameandPassword : PairNameandPassword = PairNameandPassword("VK","qwerty")
 //            viewModel.newPassword.value =  pairNameandPassword
 
-            viewModel.deletePassword(oldPairNameAndPassword)
+            //viewModel.deletePassword(oldPairNameAndPassword)
             viewModel.addPassword("${inputServiceName.text}", "${inputPassword.text}")
 
             //go to another fragment
             NavHostFragment.findNavController(this).navigate(R.id.action_setPasswordFragment_to_MainScreenFragment)
         }
-        initRecyclerView()
-        adapterSuggestions.onItemClick = { result ->
+        randomButton.setOnClickListener {
+            inputPassword.append(randomPasswordFirstPart().toString()+ randomPasswordSecondPart().toString())
+        }
+    }
+
+    private fun initFourthRecyclerView(view: View) {
+        var arrayList : ArrayList<SuggestPair> = ArrayList()
+
+        recyclerviewSuggestions4 = view.findViewById(R.id.fourthPasswordSuggestingList)
+        //var suggestPair: SuggestPair = SuggestPair("Facebook", "\uD83C\uDFCA")
+
+        arrayList.add(SuggestPair("name of shop", "\uD83C\uDFEC\uD83D\uDED2"))
+        arrayList.add(SuggestPair("birthday date", "\uD83C\uDF82"))
+        arrayList.add(SuggestPair("home address", "\uD83C\uDFE0"))
+        arrayList.add(SuggestPair("country", "\uD83D\uDDFE"))
+
+        arrayList.add(SuggestPair("work adress", "\uD83C\uDFEC"))
+        //arrayList.add(SuggestPair("my profession", "\uD83D\uDEE3️"))
+//        arrayList.add(SuggestPair("favorite game", "\uD83C\uDFAE"))
+
+        adapterSuggestions4 = SuggestionsAdapter4(arrayList, requireContext(), viewModel)
+
+        recyclerviewSuggestions4.adapter = adapterSuggestions4
+        recyclerviewSuggestions4.layoutManager =
+                LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
+
+        recyclerviewSuggestions4.setHasFixedSize(false)
+
+        adapterSuggestions4.onItemClick = { result ->
+            Log.d("vvv",""+result)
+            inputPassword.append(result.emojiPasswordSuggest.toString())
+        }
+
+    }
+
+    private fun initThirdRecyclerView(view: View) {
+        var arrayList : ArrayList<SuggestPair> = ArrayList()
+
+        recyclerviewSuggestions3 = view.findViewById(R.id.thirdPasswordSuggestingList)
+        //var suggestPair: SuggestPair = SuggestPair("Facebook", "\uD83C\uDFCA")
+
+        arrayList.add(SuggestPair("1", "1️⃣"))
+        arrayList.add(SuggestPair("2", "2️⃣"))
+        arrayList.add(SuggestPair("3", "3️⃣"))
+        arrayList.add(SuggestPair("4", "4️⃣"))
+        arrayList.add(SuggestPair("5", "5️⃣"))
+        arrayList.add(SuggestPair("6", "6️⃣"))
+        arrayList.add(SuggestPair("7", "7️⃣"))
+        arrayList.add(SuggestPair("8", "8️⃣"))
+        arrayList.add(SuggestPair("9", "9️⃣"))
+        arrayList.add(SuggestPair("0", "0️⃣"))
+
+
+        //arrayList.add(SuggestPair("my profession", "\uD83D\uDEE3️"))
+//        arrayList.add(SuggestPair("favorite game", "\uD83C\uDFAE"))
+
+        adapterSuggestions3 = SuggestionsAdapter3(arrayList, requireContext(), viewModel)
+
+        recyclerviewSuggestions3.adapter = adapterSuggestions3
+        recyclerviewSuggestions3.layoutManager =
+                LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
+
+        recyclerviewSuggestions3.setHasFixedSize(false)
+
+        adapterSuggestions3.onItemClick = { result ->
+            Log.d("vvv",""+result)
+            inputPassword.append(result.emojiPasswordSuggest.toString())
+        }
+
+    }
+
+    private fun initSecondRecyclerView(view: View) {
+        var arrayList : ArrayList<SuggestPair> = ArrayList()
+
+        recyclerviewSuggestions2 = view.findViewById(R.id.secondPasswordSuggestingList)
+        //var suggestPair: SuggestPair = SuggestPair("Facebook", "\uD83C\uDFCA")
+
+        arrayList.add(SuggestPair("phone number", "\uD83D\uDCF1"))
+        arrayList.add(SuggestPair("home phone", "☎️\uD83C\uDFE0"))
+        arrayList.add(SuggestPair("work phone", "\uD83D\uDCF1\uD83D\uDCBC"))
+        arrayList.add(SuggestPair("car mark", "\uD83D\uDE98"))
+
+        arrayList.add(SuggestPair("car number", "#️⃣\uD83D\uDE98"))
+        arrayList.add(SuggestPair("favorite street", "\uD83D\uDEE3️"))
+        arrayList.add(SuggestPair("favorite game", "\uD83C\uDFAE"))
+
+        adapterSuggestions2 = SuggestionsAdapter2(arrayList, requireContext(), viewModel)
+
+        recyclerviewSuggestions2.adapter = adapterSuggestions2
+        recyclerviewSuggestions2.layoutManager =
+                LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
+
+        recyclerviewSuggestions2.setHasFixedSize(false)
+
+        adapterSuggestions2.onItemClick = { result ->
             Log.d("vvv",""+result)
             inputPassword.append(result.emojiPasswordSuggest.toString())
         }
 
 
-
     }
 
-    private fun initRecyclerView() {
-        var suggestPair: SuggestPair = SuggestPair("Facebook", "\uD83C\uDFCA")
+    private fun initFirstRecyclerView(view: View) {
+        var arrayList : ArrayList<SuggestPair> = ArrayList()
+        recyclerviewSuggestions = view.findViewById(R.id.firstPasswordSuggestingList)
 
-        arrayList.add(SuggestPair("my dog's nickname", "\uD83D\uDC36\uD83D\uDD24"))
-        arrayList.add(SuggestPair("my cat's nickname", "\uD83D\uDC31\uD83D\uDD24"))
-        arrayList.add(SuggestPair("my favorite number", "\uD83D\uDD22❤️"))
-        arrayList.add(SuggestPair("my favorite color", "\uD83C\uDF08❤️"))
+        arrayList.add(SuggestPair("dog's nickname", "\uD83D\uDC36\uD83D\uDD24"))
+        arrayList.add(SuggestPair("cat's nickname", "\uD83D\uDC31\uD83D\uDD24"))
+        arrayList.add(SuggestPair("favorite number", "\uD83D\uDD22❤️"))
+        arrayList.add(SuggestPair("favorite color", "\uD83C\uDF08❤️"))
 
-        adapterSuggestions = SuggestionsAdapter(arrayList, requireContext(), viewModel)
+        arrayList.add(SuggestPair("favorite book", "\uD83D\uDCD6♥️"))
+        arrayList.add(SuggestPair("favorite food", "\uD83E\uDD63♥️"))
+        arrayList.add(SuggestPair("favorite city", "\uD83C\uDFD9️♥️"))
+
+        adapterSuggestions = SuggestionsAdapter1(arrayList, requireContext(), viewModel)
 
         recyclerviewSuggestions.adapter = adapterSuggestions
         recyclerviewSuggestions.layoutManager =
             LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
 
         recyclerviewSuggestions.setHasFixedSize(false)
+
+        adapterSuggestions.onItemClick = { result ->
+            Log.d("vvv",""+result)
+            inputPassword.append(result.emojiPasswordSuggest.toString())
+        }
     }
 
     override fun onPause() {
@@ -130,7 +258,14 @@ class ResultFragment : Fragment(R.layout.fragment_setpassword) {
         viewModel.pairPasswordAndName.value=null
         inputServiceName.setText("")
         inputPassword.setText("")
+        Timber.i("lifec onpause")
     }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.i("lifec onresume")
+    }
+
 
 
     companion object {

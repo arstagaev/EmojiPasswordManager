@@ -14,8 +14,6 @@ import android.view.Menu
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -28,9 +26,12 @@ import com.revolve44.emojipasswordmanager.ui.ViewModelProviderFactory
 import com.revolve44.emojipasswordmanager.ui.blinkATextView
 //import com.revolve44.emojipasswordmanager.ui.changeColor
 import com.revolve44.emojipasswordmanager.ui.screens.MainScreenFragment
+import com.revolve44.emojipasswordmanager.ui.screens.ViewModelTrashbox
 import com.revolve44.emojipasswordmanager.utils.listOfColor
 
 import com.revolve44.emojipasswordmanager.utils.randomName
+import timber.log.Timber
+import java.lang.Exception
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -38,6 +39,8 @@ import kotlin.concurrent.schedule
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel : MainViewModel
+    lateinit var viewModelTrashbox: ViewModelTrashbox
+
     // create a daemon thread (i mean no ui thread if false)
     private val timer = Timer("schedule",false)
     private lateinit var popup : PopupMenu
@@ -46,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var toolbar_menu: ImageView
     lateinit var navController: NavController
     lateinit var actionbarTitle: TextView
+    lateinit var repository: PassRepository
     val mainScreenfragment : MainScreenFragment = MainScreenFragment()
 
     @SuppressLint("BinaryOperationInTimber")
@@ -54,26 +58,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //toolbar = findViewById(R.id.toolbar)
-        //mainScreenLayout = findViewById(R.id.main_content)
+
         toolbar_menu = findViewById(R.id.toolbar_menu)
         actionbarTitle = findViewById(R.id.actionbarTitle)
 
-
-
-
-        val repository = PassRepository(application)
+        repository = PassRepository(application)
 
         blinkATextView(actionbarTitle,Color.WHITE,Color.BLACK, listOfColor(PreferenceMaestro.pickedColorofToolbarTitle),1000)
 
 
+        // viewmodel factory
+        val viewModelProviderFactory = ViewModelProviderFactory(application)
 
-        val viewModelProviderFactory = ViewModelProviderFactory(application, repository)
-        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this,viewModelProviderFactory).get(MainViewModel::class.java)
 
-//        toolbar.inflateMenu(R.menu.menu_on_mainscreen)
-//        toolbar.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener { false })
-        navController = findNavController(R.id.nav_host_fragment) //Initialising navController
+        sessionRouter()
+
         var a = 0
         actionbarTitle.setOnClickListener {
             a++
@@ -91,14 +91,40 @@ class MainActivity : AppCompatActivity() {
                 PreferenceMaestro.pickedColorofToolbarTitle = a
 
             }
-
         }
 
 
 
+    }
 
+
+    private fun sessionRouter(){
+        navController = findNavController(R.id.nav_host_fragment) //Initialising navController
+        PreferenceMaestro.appLaunchCount = PreferenceMaestro.appLaunchCount + 1
+
+
+        if(PreferenceMaestro.shouldShowFirstrun){
+            navController.navigate(R.id.action_MainScreenFragment_to_firstRunFragment)
+        }
+        toolbarMenuButton()
+
+    }
+
+    private fun toolbarMenuButton(){
         toolbar_menu.setOnClickListener {
             showMenu()
+
+        }
+
+        if(PreferenceMaestro.shouldShowFirstrun){
+
+            toolbar_menu.setColorFilter(Color.BLACK)
+            timer.schedule(7000){
+                toolbar_menu.setColorFilter(Color.WHITE)
+            }
+        }else{
+            toolbar_menu.setColorFilter(Color.WHITE)
+
         }
 
     }
@@ -114,12 +140,30 @@ class MainActivity : AppCompatActivity() {
 //                Log.d("sss",""+menux.itemId)
 
             when(menux.itemId){
-                //R.id.menu_settings -> navController.navigate(R.id.action_gameFragment_to_settingsFragment)
+                R.id.helper ->{
+                    //dummy plug
+                    try {
+                        navController.navigate(R.id.action_MainScreenFragment_to_firstRunFragment)
+                    }catch (e: Exception){
+                        Timber.e("Error in action bar menu: $e")
+                        //java.lang.IllegalArgumentException: Navigation action/destination com.revolve44.emojipasswordmanager:id/action_MainScreenFragment_to_trashboxFragment cannot be found from the current destination Destination(com.revolve44.emojipasswordmanager:id/trashboxFragment) label=fragment_result class=com.revolve44.emojipasswordmanager.ui.screens.TrashboxFragment
+                    }
+
+                }
+                R.id.trashbox ->{
+                    //dummy plug
+                    try {
+                        navController.navigate(R.id.action_MainScreenFragment_to_trashboxFragment)
+                    }catch (e: Exception){
+                        //java.lang.IllegalArgumentException: Navigation action/destination com.revolve44.emojipasswordmanager:id/action_MainScreenFragment_to_trashboxFragment cannot be found from the current destination Destination(com.revolve44.emojipasswordmanager:id/trashboxFragment) label=fragment_result class=com.revolve44.emojipasswordmanager.ui.screens.TrashboxFragment
+                    }
+
+                }
                 R.id.menu_about -> showDialog()
                 R.id.change_color -> {
                     goToUrl("https://discord.gg/gSDaQ4xN")
                     // changeColor(mainScreenLayout,PreferenceMaestro.pickedColorofMainScreen, listOfColor(howmanyclickedChangeColorinMenu),1500)
-//                    howmanyclickedChangeColorinMenu++
+
                 }
             }
             return@setOnMenuItemClickListener true

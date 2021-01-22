@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- The actual size of FirstrunCardView is determined in onMeasure() -->
+    <com.revolve44.emojipasswordmanager.firstrun.FirstrunCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:elevation="4dp"
+        cardview:cardCornerRadius="6dp"
+        cardview:cardBackgroundColor="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fadingEdgeLength="12sp"
+                android:fillViewport="true"
+                android:requiresFadingEdge="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+
+
+                        <TextView
+                            android:id="@+id/title_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center"
+                            android:lineSpacingMultiplier="1.25"
+                            android:textColor="#ff212121"
+                            android:textSize="22sp"
+                            cardview:layout_constraintStart_toStartOf="parent"
+                            cardview:layout_constraintTop_toTopOf="parent"
+                            tools:text="firstrun_tracking_title" />
+
+                        <TextView
+                            android:id="@+id/raw_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:lineSpacingMultiplier="1.25"
+                            android:textColor="#ff737373"
+                            android:textSize="44sp"
+                            cardview:layout_constraintBottom_toTopOf="@+id/imageView"
+                            cardview:layout_constraintStart_toStartOf="parent"
+                            cardview:layout_constraintTop_toBottomOf="@+id/title_view"
+                            cardview:layout_constraintVertical_bias="0.847"
+                            tools:text="Alex1994" />
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="9dp"
+                            android:src="@drawable/ic_baseline_arrow_downward_24"
+                            cardview:layout_constraintBottom_toTopOf="@+id/emoji_password"
+                            cardview:layout_constraintEnd_toEndOf="parent"
+                            cardview:layout_constraintStart_toStartOf="parent">
+
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/emoji_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="96dp"
+                            android:gravity="center"
+                            android:lineSpacingMultiplier="1.25"
+                            android:textColor="#ff737373"
+                            android:textSize="60sp"
+                            cardview:layout_constraintBottom_toBottomOf="parent"
+                            cardview:layout_constraintStart_toStartOf="parent"
+                            tools:text="🧑🎂🗓️" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="#ff9400FF"
+                android:textSize="16sp"
+                tools:text="firstrun_next_button" />
+
+        </LinearLayout>
+
+    </com.revolve44.emojipasswordmanager.firstrun.FirstrunCardView>
+
+</FrameLayout>

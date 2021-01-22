@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object PreferenceMaestro {
-    private const val NAME = "DataofSolarPanels"
+    private const val NAME = "EmojiPasswordManager"
     private const val MODE = Context.MODE_PRIVATE
     private lateinit var preferences: SharedPreferences
 
@@ -29,19 +29,27 @@ object PreferenceMaestro {
 
 
     var pickedColorofToolbarTitle: Int
-        // custom getter to get a preference of a desired type, with a predefined default value
         get() = preferences.getInt("pickedColor", 0)
-        // custom setter to save a preference back to preferences file
         set(value) = preferences.edit {
             it.putInt("pickedColor", value)
         }
 
     var pickedColorofMainScreen: Int
-        // custom getter to get a preference of a desired type, with a predefined default value
         get() = preferences.getInt("pickedColorofMainScreen", 0)
-        // custom setter to save a preference back to preferences file
         set(value) = preferences.edit {
             it.putInt("pickedColorofMainScreen", value)
+        }
+
+    var appLaunchCount: Int
+        get() = preferences.getInt("app_launch_count", 0)
+        set(value) = preferences.edit {
+            it.putInt("app_launch_count", value)
+        }
+
+    var shouldShowFirstrun: Boolean
+        get() = preferences.getBoolean("shouldShowFirstrun", true)
+        set(value) = preferences.edit {
+            it.putBoolean("shouldShowFirstrun", value)
         }
 
 

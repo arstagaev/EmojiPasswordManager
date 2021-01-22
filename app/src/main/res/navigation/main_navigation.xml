@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_gameFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_MainScreenFragment_to_trashboxFragment"
+            app:destination="@id/trashboxFragment" />
+        <action
+            android:id="@+id/action_MainScreenFragment_to_firstRunFragment"
+            app:destination="@id/firstRunFragment" />
     </fragment>
     <fragment
         android:id="@+id/setPasswordFragment"
@@ -24,6 +30,26 @@
         tools:layout="@layout/fragment_setpassword" >
         <action
             android:id="@+id/action_setPasswordFragment_to_MainScreenFragment"
+            app:destination="@id/MainScreenFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/trashboxFragment"
+        android:name="com.revolve44.emojipasswordmanager.ui.screens.TrashboxFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_trashbox" >
+        <action
+            android:id="@+id/action_trashboxFragment_to_MainScreenFragment"
+            app:destination="@id/MainScreenFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/firstRunFragment"
+        android:name="com.revolve44.emojipasswordmanager.firstrun.FirstrunFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_first_run" >
+        <action
+            android:id="@+id/action_firstRunFragment_to_MainScreenFragment"
             app:destination="@id/MainScreenFragment" />
     </fragment>
 

@@ -7,4 +7,34 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="hint_white">#6E7075</color>
+    <color name="redx">#F80000</color>
+    <color name="greenx">#7AD32C</color>
+    <color name="orangex">#FF9800</color>
+
+    <color name="black_night">#20242B</color>
+    <!--    <color name="morning">#20242B</color>-->
+    <color name="day_sun_zenith">#769CDD</color>
+    <color name="evening">#BB584F</color>
+
+    <color name="chart_stroke">#FDA000</color>
+    <color name="chart_fill_mainchart">#C59507</color>
+    <color name="chart_fill_otherchart">#C59507</color>
+
+    <!--    first run page -->
+    <color name="colorGradientStart">#a90742</color>
+    <color name="colorGradientCenter">#970772</color>
+    <color name="colorGradientEnd">#57076a</color>
+
+    <color name="colorProgressGradientStart">#FF9400FF</color>
+    <color name="colorProgressGradientEnd">#FFFF1AD9</color>
+
+    <color name="colorActiveGradientStart">#421c41</color>
+    <color name="colorActiveGradientCenter">#3e1c4d</color>
+    <color name="colorActiveGradientEnd">#271c44</color>
+    <!--    for tab layout -->
+    <color name="onboarding_indicator_default">#7FFFFFFF</color>
+    <color name="onboarding_indicator_selected">#FFFFFFFF</color>
+
 </resources>

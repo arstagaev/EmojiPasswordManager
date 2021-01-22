@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorAccent">@color/purple_700</item>
+        <item name="android:buttonStyle">@style/ButtonText</item>
+
+    </style>
+
+    <!--    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>-->
+
+    <!--    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>-->
+
+    <style name="spinnerTheme">
+        <item name="android:textColor">@color/black</item>
+
+
+    </style>
+
+    //Toolbar
+    <style name="DrawerIconStyle" parent="AppTheme">
+        <item name="color">@color/white</item>
+        <item name="iconTint">@color/black</item>
+
+    </style>
+    <style name="ButtonText" parent="AppTheme">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:colorBackground">@color/black_night</item>
+
+    </style>
+
+    <style name="toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="color">#FFDC00</item>
+        <!--        <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>-->
+    </style>
+
+</resources>
